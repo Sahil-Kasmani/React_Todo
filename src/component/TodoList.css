@@ -1,0 +1,175 @@
+fieldset {
+  border: none;
+}
+
+.todo_input_btn {
+  width: 100%;
+  display: flex;
+  padding: 0.6vh 0;
+  padding-right: 0.5em;
+  border: 1.5px solid grey;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.todo_input_btn:focus-within {
+  border: 1px solid rgb(244, 238, 238);
+  box-shadow: 0 0 2px rgb(255, 250, 250);
+}
+
+.todo_input_btn input {
+  width: 95%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding-left: 0.8rem;
+  font-size: 1.5em;
+  color: white;
+}
+
+.todo_input_btn button {
+  display: block;
+  width: 65px;
+  font-size: 1em;
+  border-radius: 20px;
+  transition: 0.2s ease;
+  background-color: orange;
+  color: white;
+  cursor: pointer;
+}
+
+.todo_input_btn button:hover {
+  letter-spacing: 1px;
+  box-shadow: 0 0 8px rgb(205, 155, 69);
+}
+
+.todo {
+  margin: 2em 0;
+}
+
+.todo p:first-child {
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #f8b12e;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.todo_item {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #4b4b4b;
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #f8b12e;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  align-items: center;
+  box-shadow: 0px 0px 3px 0px white;
+}
+
+.todo_item__1 {
+  width: 100%;
+}
+
+.todo_item__2 {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.todo_item__2 button {
+  margin-left: 0.4em;
+  width: 3.5rem;
+  padding: 0.2em 0.3em;
+  /* color: white; */
+  /* background-color: white; */
+  font-size: 0.8em;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.todo_delete__btn {
+  background-color: #f5dede;
+  transition: 0.3s ease;
+  color: red;
+  border: 1px solid red;
+}
+
+.todo_delete__btn:hover {
+  background-color: rgb(240, 21, 21);
+  box-shadow: 0 0 10px 1px rgb(232, 23, 61);
+  color: white;
+  letter-spacing: 1px;
+}
+
+.todo_edit__btn {
+  background-color: #eae8f5;
+  color: blue;
+  transition: 0.3s ease;
+  border: 1px solid blue;
+}
+
+.todo_edit__btn:hover {
+  background-color: rgb(24, 24, 236);
+  color: white;
+  box-shadow: 0 0 10px 1px rgb(43 51 227);
+  letter-spacing: 1px;
+}
+
+input[type="checkbox"] {
+  margin-right: 1em;
+  width: 20px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: #aea8a8;
+}
+
+.search_text {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search_text input {
+  background: transparent;
+  border: 1.5px solid grey;
+  font-size: 1rem;
+  padding: 0.5em;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.search_text input:focus {
+  color: white;
+  border: 1.5px solid white;
+  outline: none;
+}
+
+@media (max-width: 850px) {
+  .App {
+    width: 90%;
+  }
+  .todo_item {
+    width: 90%;
+  }
+}
+
+@media (max-width: 460px) {
+  .todo_item {
+    flex-wrap: wrap;
+  }
+  .todo_item__2 button {
+    width: 100%;
+    margin-top: 0.8rem;
+  }
+  .search_text input {
+    width: 50%;
+  }
+}
