@@ -34,13 +34,14 @@ fieldset {
   border-radius: 20px;
   transition: 0.2s ease;
   background-color: orange;
-  color: white;
   cursor: pointer;
 }
 
 .todo_input_btn button:hover {
   letter-spacing: 1px;
-  box-shadow: 0 0 8px rgb(205, 155, 69);
+  box-shadow: 0 0 10px 2px rgb(205, 155, 69);
+  outline: none;
+  border: none;
 }
 
 .todo {
@@ -72,6 +73,11 @@ fieldset {
 
 .todo_item__1 {
   width: 100%;
+}
+
+.todo_item__1 p {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .todo_item__2 {
@@ -131,10 +137,25 @@ input[type="checkbox"] {
   color: #aea8a8;
 }
 
-.search_text {
+.filters {
   margin-top: 1rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filters #optionFilter {
+  background: #ffa500;
+  font-size: 1rem;
+  padding: 0.2em;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.filters #optionFilter:focus {
+  box-shadow: 0 0 10px 1px #f8b12e;
+  border: 1.5px solid grey;
+  outline: none;
 }
 
 .search_text input {
@@ -144,10 +165,10 @@ input[type="checkbox"] {
   padding: 0.5em;
   border-radius: 8px;
   transition: 0.3s ease;
+  color: white;
 }
 
 .search_text input:focus {
-  color: white;
   border: 1.5px solid white;
   outline: none;
 }
@@ -164,12 +185,22 @@ input[type="checkbox"] {
 @media (max-width: 460px) {
   .todo_item {
     flex-wrap: wrap;
+    width: 100%;
   }
   .todo_item__2 button {
     width: 100%;
     margin-top: 0.8rem;
   }
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters #optionFilter {
+    width: 100%;
+    margin-bottom: 0.5em;
+  }
+
   .search_text input {
-    width: 50%;
+    width: 100%;
   }
 }

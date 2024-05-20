@@ -1,17 +1,32 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TodoList.css";
+
+interface ItemType {
+    id: number;
+    title: string;
+    checked: boolean;
+}
 
 interface propType {
     eachItem: any[];
-    setEachItem: any;
+    setEachItem: React.Dispatch<React.SetStateAction<ItemType[]>>;
 }
 
-const TodoList = ({ eachItem, setEachItem }: propType) => {
-    const [editId, setEditId] = useState<string | null>(null);
+const TodoList: React.FC<propType> = ({ eachItem, setEachItem }: propType) => {
+    const [editId, setEditId] = useState<number | null>(null);
     const [editValue, setEditValue] = useState<string>("");
 
-    const toggleChecked = (id: string) => {
-        const updateItems = eachItem.map((item) => {
+    // localStorage data
+    const [local_data, setLocalData] = useState<ItemType[]>([]);
+
+    useEffect(() => {
+        const storedTasks = localStorage.getItem("tasks");
+        const data = storedTasks ? JSON.parse(storedTasks) : [];
+        setLocalData(data);
+    }, [eachItem]);
+
+    const toggleChecked = (id: number) => {
+        const updateItems = local_data.map((item: any) => {
             if (item.id === id) {
                 return { ...item, checked: !item.checked };
             }
@@ -21,31 +36,27 @@ const TodoList = ({ eachItem, setEachItem }: propType) => {
         localStorage.setItem("tasks", JSON.stringify(updateItems));
     };
 
-    const handleDlt = (id: string) => {
-        const updatedItems = eachItem.filter((item) => item.id !== id);
-        console.log(updatedItems);
+    const handleDelete = (id: number) => {
+        const updatedItems = local_data.filter((item: any) => item.id !== id);
         setEachItem(updatedItems);
         localStorage.setItem("tasks", JSON.stringify(updatedItems));
     };
 
-    const handleEdit = (id: string) => {
+    const handleEdit = (id: number) => {
         setEditId(id);
-        const edit_item = eachItem.find((item) => {
-            return item.id === id;
-        });
+        const edit_item = local_data.find((item) => item.id === id);
         setEditValue(edit_item ? edit_item.title : "");
-        console.log(edit_item.title);
     };
 
     const handleEditSave = (id: string) => {
-        const update = eachItem.map((item) => {
+        const update = local_data.map((item: any) => {
             if (item.id === id) {
                 return { ...item, title: editValue };
             }
             return item;
         });
         setEachItem(update);
-        localStorage.setItem("tasks", JSON.stringify(update))
+        localStorage.setItem("tasks", JSON.stringify(update));
         setEditId(null);
     };
 
@@ -55,28 +66,26 @@ const TodoList = ({ eachItem, setEachItem }: propType) => {
                 <p>No Items are available! </p>
             ) : (
                 eachItem &&
-                eachItem.map((data, index) => (
-                    <div key={data.id} className="todo_item">
+                eachItem.map((item, index) => (
+                    <div key={item.id} className="todo_item">
                         <div className="todo_item__1">
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <label htmlFor={`todo_check_${index}`}>
                                     <input
                                         type="checkbox"
                                         id={`todo_check_${index}`}
-                                        checked={data.checked}
-                                        onChange={() => toggleChecked(data.id)}
+                                        checked={item.checked}
+                                        onChange={() => toggleChecked(item.id)}
                                     />
                                 </label>
-                                {data.id === editId ? (
+                                {item.id === editId ? (
                                     <input
                                         type="text"
                                         value={editValue}
-                                        onChange={(e) => {
-                                            setEditValue(e.target.value);
-                                        }}
+                                        onChange={(e) => setEditValue(e.target.value)}
                                     />
                                 ) : (
-                                    <p className={data.checked ? "checked" : ""}>{data.title}</p>
+                                    <p className={item.checked ? "checked" : ""}>{item.title}</p>
                                 )}
                             </div>
                         </div>
@@ -84,27 +93,21 @@ const TodoList = ({ eachItem, setEachItem }: propType) => {
                         <div className="todo_item__2">
                             <button
                                 className="todo_delete__btn"
-                                onClick={() => {
-                                    handleDlt(data.id);
-                                }}
+                                onClick={() => handleDelete(item.id)}
                             >
                                 Dlt
                             </button>
-                            {data.id === editId ? (
+                            {item.id === editId ? (
                                 <button
                                     className="todo_edit__btn"
-                                    onClick={() => {
-                                        handleEditSave(data.id);
-                                    }}
+                                    onClick={() => handleEditSave(item.id)}
                                 >
                                     Save
                                 </button>
                             ) : (
                                 <button
                                     className="todo_edit__btn"
-                                    onClick={() => {
-                                        handleEdit(data.id);
-                                    }}
+                                    onClick={() => handleEdit(item.id)}
                                 >
                                     Edit
                                 </button>
